@@ -11,14 +11,27 @@ class DynFibonacci {
 
 public:
     // TODO: 实现动态设置容量的构造器
-    DynFibonacci(int capacity): cache(new ?), cached(?) {}
+    DynFibonacci(int capacity): cache(new size_t[capacity]), cached(0) {
+        if (capacity < 2) {
+            cache[0] = 0;
+        } else {
+            cache[0] = 0;
+            cache[1] = 1;
+            cached = 1;
+        }
+    }
 
     // TODO: 实现析构器，释放缓存空间
-    ~DynFibonacci();
+    ~DynFibonacci() {
+        delete[] cache;
+        cached = 0;
+    };
 
     // TODO: 实现正确的缓存优化斐波那契计算
     size_t get(int i) {
-        for (; false; ++cached) {
+        // if (i >= sizeof(cache) / sizeof(cache[0])) throw std::out_of_range("i out of range");
+        if (i <= 1) return i;
+        for (cached = 2; cached <= i; ++cached) {
             cache[cached] = cache[cached - 1] + cache[cached - 2];
         }
         return cache[i];
